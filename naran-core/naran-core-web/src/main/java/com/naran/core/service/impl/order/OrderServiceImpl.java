@@ -46,13 +46,13 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public Long addOrderByWish(Order order) {
-	order.setOrderType(OrderType.WISH.name());
+	order.setOrderType(OrderType.BOOK.name());
 	return addOrder(order);
     }
 
     @Override
     public Long addOrderByDonation(Order order, String questionnaireOptionIds) {
-	order.setOrderType(OrderType.DONATION.name());
+	order.setOrderType(OrderType.BOOK.name());
 	if (StringUtil.isNotBlank(questionnaireOptionIds)) {
 	    String[] optionIds = questionnaireOptionIds.split(StringUtil.DEFAULT_BOUND_SYMBOL);
 	    String[] allnames = new String[optionIds.length];

@@ -48,7 +48,7 @@ public class OrderRecordController extends BaseController {
 	    writeAjaxJSONResponse(ResultMessageBuilder.build(AppCode.GO_TO_LOGIN_CODE), response);
 	    return;
 	}
-	Page<Order> page = orderService.findOrderByInitiatorPage(OrderType.DONATION.name(), accountId, param.getPageNum(), param.getPageSize());
+	Page<Order> page = orderService.findOrderByInitiatorPage(OrderType.BOOK.name(), accountId, param.getPageNum(), param.getPageSize());
 	OrderPageVO pageVO = new OrderPageVO();
 	if (null != page && CollectionUtils.isNotEmpty(page.getResult())) {
 	    pageVO.setPageAll(param.getPageNum(), param.getPageSize(), page.getTotalPage(), page.getTotalCount());
@@ -68,7 +68,7 @@ public class OrderRecordController extends BaseController {
 	    writeAjaxJSONResponse(ResultMessageBuilder.build(AppCode.GO_TO_LOGIN_CODE), response);
 	    return;
 	}
-	Page<Order> page = orderService.findOrderByInitiatorPage(OrderType.WISH.name(), accountId, param.getPageNum(), param.getPageSize());
+	Page<Order> page = orderService.findOrderByInitiatorPage(OrderType.BOOK.name(), accountId, param.getPageNum(), param.getPageSize());
 	OrderPageVO pageVO = new OrderPageVO();
 	if (null != page && CollectionUtils.isNotEmpty(page.getResult())) {
 	    pageVO.setPageAll(param.getPageNum(), param.getPageSize(), page.getTotalPage(), page.getTotalCount());

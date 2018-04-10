@@ -82,8 +82,7 @@ public class OrderController extends BaseController {
 	}
 	writeAjaxJSONResponse(ResultMessageBuilder.build(pageVO), response);
     }
-    
-    
+
     /**
      * 最新发布列表(分页)
      * 
@@ -101,10 +100,6 @@ public class OrderController extends BaseController {
 	}
 	writeAjaxJSONResponse(ResultMessageBuilder.build(pageVO), response);
     }
-    
-    
-
-
 
     /**
      * 心愿详情页
@@ -249,7 +244,7 @@ public class OrderController extends BaseController {
 	OrderApply orderApply = new OrderApply();
 	BeanUtils.copyProperties(param, orderApply);
 	orderApply.setAccountId(current.getId());
-	orderApply.setApplyType(OrderType.WISH.name());
+	orderApply.setApplyType(OrderType.BOOK.name());
 
 	DubboResponse<String> dResponse = orderApplyService.addOrderApplyByWish(orderApply);
 	if (!DubboResponseCode.SUCCESS.equals(dResponse.getCode())) {
@@ -320,7 +315,7 @@ public class OrderController extends BaseController {
     public void donationPage(OrderPageParam param, HttpServletRequest request, HttpServletResponse response) {
 	OrderPageVO pageVO = new OrderPageVO();
 	// 加载
-	Page<Order> page = orderService.findOrderByPage(OrderType.DONATION.name(), param.getAgingDegree(), param.getCommodityType(), param.getCity(), param.getProvince(), param.getOrderByType(), param.getPageNum(), param.getPageSize());
+	Page<Order> page = orderService.findOrderByPage(OrderType.BOOK.name(), param.getAgingDegree(), param.getCommodityType(), param.getCity(), param.getProvince(), param.getOrderByType(), param.getPageNum(), param.getPageSize());
 	if (null != page && CollectionUtils.isNotEmpty(page.getResult())) {
 	    pageVO.setPageAll(param.getPageNum(), param.getPageSize(), page.getTotalPage(), page.getTotalCount());
 	    pageVO.setOrders(new ListVO<OrderSimpleVO>(page.getResult(), OrderSimpleVO.class).getVoList());
@@ -419,7 +414,7 @@ public class OrderController extends BaseController {
 	orderApply = new OrderApply();
 	BeanUtils.copyProperties(param, orderApply);
 	orderApply.setAccountId(current.getId());
-	orderApply.setApplyType(OrderType.DONATION.name());
+	orderApply.setApplyType(OrderType.BOOK.name());
 	orderApply.setBackdropImg(QiniuImageUtil.replaceUrl(param.getBackdropImg()));
 	orderApply.setBackdropBottomImg(QiniuImageUtil.replaceUrl(param.getBackdropBottomImg()));
 	DubboResponse<String> dResponse = orderApplyService.addOrderApplyByDonation(orderApply);

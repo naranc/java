@@ -52,7 +52,7 @@ public class OrderApplyServiceImpl implements IOrderApplyService {
     @Override
     public void updateOrderApplyByRevoke(OrderApply orderApply) {
 	Order order = orderService.findOrderById(orderApply.getOrderId());
-	if (order != null && orderApply != null && OrderType.WISH.name().equals(order.getOrderType())) {
+	if (order != null && orderApply != null && OrderType.BOOK.name().equals(order.getOrderType())) {
 	    order.setOrderStatus(OrderStatus.INITIAL.name());
 	    orderService.updateOrder(order);
 	}
@@ -127,7 +127,7 @@ public class OrderApplyServiceImpl implements IOrderApplyService {
 	    order.setOrderStatus(OrderStatus.WAITING.name());
 	    orderService.updateOrder(order);
 	} else {
-	    if (OrderType.WISH.name().equals(order.getOrderType())) {
+	    if (OrderType.BOOK.name().equals(order.getOrderType())) {
 		order.setOrderStatus(OrderStatus.INITIAL.name());
 		orderService.updateOrder(order);
 	    }

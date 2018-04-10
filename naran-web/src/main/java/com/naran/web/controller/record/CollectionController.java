@@ -116,7 +116,7 @@ public class CollectionController extends BaseController {
 	    writeAjaxJSONResponse(ResultMessageBuilder.build(AppCode.GO_TO_LOGIN_CODE), response);
 	    return;
 	}
-	Page<CollectionRecord> page = collectionRecordService.findCollectionByPage(BusinessType.ORDER.name(), OrderType.DONATION.name(), accountId, param.getPageNum(), param.getPageSize());
+	Page<CollectionRecord> page = collectionRecordService.findCollectionByPage(BusinessType.ORDER.name(), OrderType.BOOK.name(), accountId, param.getPageNum(), param.getPageSize());
 	OrderPageVO pageVO = new OrderPageVO();
 	if (null != page && CollectionUtils.isNotEmpty(page.getResult())) {
 	    pageVO.setPageAll(param.getPageNum(), param.getPageSize(), page.getTotalPage(), page.getTotalCount());
@@ -136,7 +136,7 @@ public class CollectionController extends BaseController {
 	    writeAjaxJSONResponse(ResultMessageBuilder.build(AppCode.GO_TO_LOGIN_CODE), response);
 	    return;
 	}
-	Page<CollectionRecord> page = collectionRecordService.findCollectionByPage(BusinessType.ORDER.name(), OrderType.WISH.name(), accountId, param.getPageNum(), param.getPageSize());
+	Page<CollectionRecord> page = collectionRecordService.findCollectionByPage(BusinessType.ORDER.name(), OrderType.BOOK.name(), accountId, param.getPageNum(), param.getPageSize());
 
 	OrderPageVO pageVO = new OrderPageVO();
 	if (null != page && CollectionUtils.isNotEmpty(page.getResult())) {
