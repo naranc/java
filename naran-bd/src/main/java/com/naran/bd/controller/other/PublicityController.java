@@ -9,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.naran.bd.controller.base.BaseController;
+import com.naran.bd.controller.base.BdCode;
 import com.naran.bd.param.other.PublicityPageParam;
+import com.naran.bd.param.other.PublicityParam;
 import com.naran.bd.vo.other.PublicityPageVO;
 import com.naran.bd.vo.other.PublicityVO;
 import com.naran.core.entity.other.Publicity;
@@ -48,4 +50,36 @@ public class PublicityController extends BaseController {
 	writeAjaxJSONResponse(ResultMessageBuilder.build(pageVO), response);
     }
 
+    /**
+     * 轮播图新增
+     * 
+     */
+    @RequestMapping(value = "/add")
+    public void add(PublicityPageParam param, HttpServletRequest request, HttpServletResponse response) {
+	
+	writeAjaxJSONResponse(ResultMessageBuilder.build(BdCode.SUCCESS_CODE), response);
+    }
+    
+    /**
+     * 轮播图删除
+     * 
+     */
+    @RequestMapping(value = "/delete")
+    public void delete(PublicityParam param, HttpServletRequest request, HttpServletResponse response) {
+	
+	writeAjaxJSONResponse(ResultMessageBuilder.build(BdCode.SUCCESS_CODE), response);
+    }
+    
+    /**
+     * 轮播图更新
+     * 
+     */
+    @RequestMapping(value = "/update")
+    public void update(PublicityParam param, HttpServletRequest request, HttpServletResponse response) {
+	
+	writeAjaxJSONResponse(ResultMessageBuilder.build(BdCode.SUCCESS_CODE), response);
+    }
+    
+    
+    
 }
