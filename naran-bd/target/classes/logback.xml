@@ -98,7 +98,7 @@
 		</layout>
 	</appender>
 
-	<logger name="com.naran.web" level="INFO" />
+	<logger name="com.naran.bd" level="INFO" />
 	<logger name="PARAM_LOGGER">
 		<level value="INFO" />
 		<appender-ref ref="PARAM_APPENDER" />
