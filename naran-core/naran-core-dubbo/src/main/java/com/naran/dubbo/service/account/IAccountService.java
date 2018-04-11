@@ -2,6 +2,7 @@ package com.naran.dubbo.service.account;
 
 import com.naran.core.entity.account.Account;
 import com.naran.dubbo.response.DubboResponse;
+import com.naran.foundation.mybatis.page.Page;
 
 /**
  * 平台账号服务接口
@@ -111,5 +112,8 @@ public interface IAccountService {
      * 
      */
     DubboResponse<String> certification(Account account);
+    
+
+    Page<Account> findAccountByPage(String silentTime,Boolean defriend, String startDate, String endDate,int pageNum, int pageSize);
 
 }

@@ -14,6 +14,8 @@ public class PublicityParam extends BaseParam {
 
     private String publicityCategory;
 
+    private Integer priority;
+
     public Long getPublicityId() {
 	return publicityId;
     }
@@ -52,6 +54,14 @@ public class PublicityParam extends BaseParam {
 
     public void setPublicityCategory(String publicityCategory) {
 	this.publicityCategory = publicityCategory;
+    }
+
+    public Integer getPriority() {
+	return priority;
+    }
+
+    public void setPriority(Integer priority) {
+	this.priority = priority;
     }
 
 }

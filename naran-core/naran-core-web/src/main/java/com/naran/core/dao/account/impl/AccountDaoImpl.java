@@ -36,7 +36,9 @@ public class AccountDaoImpl implements AccountDao {
     public Long addAccount(Account account) {
 	account.setCreateTime(new Date());
 	account.setUpdateTime(new Date());
+	account.setSilentTime(new Date());
 	account.setExpired(Boolean.TRUE);
+	account.setDefriend(Boolean.TRUE);
 	account.setCertificationType(CertificationType.INITIAL.name());
 	myBatisDAO.insert(ADD_ACCOUNT, account);
 
@@ -94,8 +96,12 @@ public class AccountDaoImpl implements AccountDao {
 
     @SuppressWarnings("unchecked")
     @Override
-    public Page<Account> findAccountByPage(int pageNum, int pageSize) {
+    public Page<Account> findAccountByPage(String silentTime, Boolean defriend, String startDate, String endDate, int pageNum, int pageSize) {
 	Map<String, Object> param = new HashMap<String, Object>();
+	param.put("silentTime", silentTime);
+	param.put("startDate", startDate);
+	param.put("endDate", endDate);
+	param.put("defriend", defriend);
 	return myBatisDAO.findForPage(FIND_ACCOUNT_BY_PAGE, new PageRequest(pageNum, pageSize, param));
     }
 }

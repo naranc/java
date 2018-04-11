@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +42,7 @@ public class PublicityController extends BaseController {
     @RequestMapping(value = "/page")
     public void publicityPage(PublicityPageParam param, HttpServletRequest request, HttpServletResponse response) {
 	PublicityPageVO pageVO = new PublicityPageVO();
+	
 	// 加载
 	Page<Publicity> page = publicityService.findPublicityByPage(param.getPublicityType(), param.getPageNum(), param.getPageSize());
 	if (null != page && CollectionUtils.isNotEmpty(page.getResult())) {
@@ -51,35 +53,30 @@ public class PublicityController extends BaseController {
     }
 
     /**
-     * 轮播图新增
+     * 轮播图更新
      * 
      */
-    @RequestMapping(value = "/add")
-    public void add(PublicityPageParam param, HttpServletRequest request, HttpServletResponse response) {
-	
+    @RequestMapping(value = "/change")
+    public void change(PublicityParam param, HttpServletRequest request, HttpServletResponse response) {
+	Publicity publicity = new Publicity();
+	BeanUtils.copyProperties(param, publicity);
+	if (param.getPublicityId() != null) {
+	    publicity.setId(param.getPublicityId());
+	    publicityService.updatePublicity(publicity);
+	} else {
+	    publicityService.addPublicity(publicity);
+	}
 	writeAjaxJSONResponse(ResultMessageBuilder.build(BdCode.SUCCESS_CODE), response);
     }
-    
+
     /**
      * 轮播图删除
      * 
      */
     @RequestMapping(value = "/delete")
-    public void delete(PublicityParam param, HttpServletRequest request, HttpServletResponse response) {
-	
+    public void delete(Long publicityId, HttpServletRequest request, HttpServletResponse response) {
+	publicityService.deletePublicity(publicityId);
 	writeAjaxJSONResponse(ResultMessageBuilder.build(BdCode.SUCCESS_CODE), response);
     }
-    
-    /**
-     * 轮播图更新
-     * 
-     */
-    @RequestMapping(value = "/update")
-    public void update(PublicityParam param, HttpServletRequest request, HttpServletResponse response) {
-	
-	writeAjaxJSONResponse(ResultMessageBuilder.build(BdCode.SUCCESS_CODE), response);
-    }
-    
-    
-    
+
 }

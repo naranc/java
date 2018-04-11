@@ -17,6 +17,8 @@ public class Publicity extends BaseEntityPO {
 
     private String publicityCategory;
 
+    private Integer priority;
+
     public String getPublicityType() {
 	return publicityType;
     }
@@ -47,6 +49,14 @@ public class Publicity extends BaseEntityPO {
 
     public void setPublicityCategory(String publicityCategory) {
 	this.publicityCategory = publicityCategory;
+    }
+
+    public Integer getPriority() {
+	return priority;
+    }
+
+    public void setPriority(Integer priority) {
+	this.priority = priority;
     }
 
 }

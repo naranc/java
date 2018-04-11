@@ -28,7 +28,10 @@
 		<result column="NAME" jdbcType="VARCHAR" property="name" />
 		<result column="CERTIFICATION_TYPE" jdbcType="VARCHAR" property="certificationType" />
 		<result column="REMARK" jdbcType="VARCHAR" property="remark" />
-		
+		<result column="SILENT_TIME" jdbcType="TIMESTAMP" property="silentTime" />
+		<result column="DEFRIEND" jdbcType="BIT" property="defriend" />
+
+
 	</resultMap>
 
 	<insert id="addAccount" parameterType="Account" useGeneratedKeys="true" keyProperty="id">
@@ -39,7 +42,7 @@
 		NOW_LOVE, CREATE_TIME, UPDATE_TIME,
 		EXPIRED, CARD_TIME, PROVINCE,
 		COUNTY, CARD_POSITIVE, CARD_OPPOSITE,
-		NAME, CERTIFICATION_TYPE,REMARK)
+		NAME, CERTIFICATION_TYPE,REMARK,SILENT_TIME,DEFRIEND)
 		values ( #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
 		#{nickName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR},
 		#{city,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR},
@@ -48,7 +51,7 @@
 		#{expired,jdbcType=BIT},
 		#{cardTime,jdbcType=TIMESTAMP}, #{province,jdbcType=VARCHAR},
 		#{county,jdbcType=VARCHAR}, #{cardPositive,jdbcType=VARCHAR}, #{cardOpposite,jdbcType=VARCHAR},
-		#{name,jdbcType=VARCHAR}, #{certificationType,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+		#{name,jdbcType=VARCHAR}, #{certificationType,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},#{silentTime,jdbcType=TIMESTAMP},#{defriend,jdbcType=BIT})
 	</insert>
 
 	<update id="updateAccount" parameterType="Account">
@@ -99,6 +102,9 @@
 			<if test="expired != null">
 				EXPIRED = #{expired,jdbcType=BIT},
 			</if>
+			<if test="defriend != null">
+				DEFRIEND = #{defriend,jdbcType=BIT},
+			</if>
 			<if test="cardTime != null">
 				CARD_TIME = #{cardTime,jdbcType=TIMESTAMP},
 			</if>
@@ -123,6 +129,9 @@
 			<if test="remark != null">
 				REMARK = #{remark,jdbcType=VARCHAR},
 			</if>
+			<if test="silentTime != null">
+				SILENT_TIME = #{silentTime,jdbcType=TIMESTAMP},
+			</if>
 		</set>
 		WHERE ID = #{id}
 	</update>
@@ -143,5 +152,22 @@
 	<select id="findAccountByLogin" parameterType="HashMap" resultMap="AccountMap">
 		SELECT * FROM naran_account WHERE EXPIRED=1 AND PHONE = #{phone} AND PASSWORD = #{password}
 	</select>
+	<select id="findAccountByPage" parameterType="HashMap" resultMap="AccountMap">
+		SELECT * FROM naran_account WHERE EXPIRED=1
+		<if test="startDate != null">
+			AND date_format(CREATE_TIME,'%Y-%m-%d') &gt;= date_format(#{startDate},'%Y-%m-%d')
+		</if>
+		<if test="endDate != null">
+			AND date_format(CREATE_TIME,'%Y-%m-%d') &lt;= date_format(#{endDate},'%Y-%m-%d')
+		</if>
+		<if test="silentTime != null">
+			AND date_format(SILENT_TIME,'%Y-%m-%d') &lt;= date_format(#{silentTime},'%Y-%m-%d')
+		</if>
+		<if test="defriend != null">
+			AND DEFRIEND=#{defriend}
+		</if>
+		ORDER BY ID DESC
+	</select>
+
 
 </mapper>

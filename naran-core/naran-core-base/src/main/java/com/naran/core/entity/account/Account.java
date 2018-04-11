@@ -1,5 +1,7 @@
 package com.naran.core.entity.account;
 
+import java.util.Date;
+
 import com.naran.foundation.entity.BaseEntityPO;
 
 /**
@@ -53,6 +55,10 @@ public class Account extends BaseEntityPO {
     private String cardOpposite;// 身份证反面
 
     private String certificationType;
+
+    private Date silentTime;// 唤醒时间
+
+    private Boolean defriend;
 
     /* 值传递，假字段 */
     private String accessToken; // 登录授权码
@@ -223,6 +229,22 @@ public class Account extends BaseEntityPO {
 
     public void setAccessToken(String accessToken) {
 	this.accessToken = accessToken;
+    }
+
+    public Date getSilentTime() {
+	return silentTime;
+    }
+
+    public void setSilentTime(Date silentTime) {
+	this.silentTime = silentTime;
+    }
+
+    public Boolean getDefriend() {
+	return defriend;
+    }
+
+    public void setDefriend(Boolean defriend) {
+	this.defriend = defriend;
     }
 
 }

@@ -24,6 +24,6 @@ public interface AccountDao {
 
     Account findAccountByLogin(String phone, String password);
 
-    Page<Account> findAccountByPage(int pageNum, int pageSize);
+    Page<Account> findAccountByPage(String silentTime,Boolean defriend, String startDate, String endDate,int pageNum, int pageSize);
 
 }

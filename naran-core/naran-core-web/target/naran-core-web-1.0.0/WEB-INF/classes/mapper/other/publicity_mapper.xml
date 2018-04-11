@@ -14,15 +14,16 @@
 		<result column="PUBLICITY_NAME" property="publicityName" jdbcType="VARCHAR" />
 		<result column="PUBLICITY_IMG" property="publicityImg" jdbcType="VARCHAR" />
 		<result column="PUBLICITY_CATEGORY" property="publicityCategory" jdbcType="VARCHAR" />
+		<result column="PRIORITY" jdbcType="INTEGER" property="priority" />
 	</resultMap>
 
 	<insert id="addPublicity" parameterType="Publicity" useGeneratedKeys="true" keyProperty="id">
 		insert into naran_publicity ( PUBLICITY_TYPE, PUBLICITY_NAME,
 		PUBLICITY_IMG, CREATE_TIME, UPDATE_TIME,
-		EXPIRED, PUBLICITY_CATEGORY)
+		EXPIRED, PUBLICITY_CATEGORY,PRIORITY)
 		values (#{publicityType,jdbcType=VARCHAR}, #{publicityName,jdbcType=VARCHAR},
 		#{publicityImg,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
-		#{expired,jdbcType=BIT}, #{publicityCategory,jdbcType=VARCHAR})
+		#{expired,jdbcType=BIT}, #{publicityCategory,jdbcType=VARCHAR}, #{priority,jdbcType=INTEGER})
 	</insert>
 
 	<update id="updatePublicity" parameterType="Publicity">
@@ -49,6 +50,9 @@
 			<if test="publicityCategory != null">
 				PUBLICITY_CATEGORY = #{publicityCategory,jdbcType=VARCHAR},
 			</if>
+			<if test="priority != null">
+				PRIORITY = #{priority,jdbcType=INTEGER},
+			</if>
 		</set>
 		where ID = #{id}
 	</update>
@@ -58,7 +62,7 @@
 	</select>
 
 	<select id="findPublicityByPage" parameterType="HashMap" resultMap="PublicityMap">
-		SELECT * FROM naran_publicity WHERE EXPIRED=1 AND PUBLICITY_TYPE = #{publicityType} ORDER BY ID DESC
+		SELECT * FROM naran_publicity WHERE EXPIRED=1 AND PUBLICITY_TYPE = #{publicityType} ORDER BY PUBLICITY_TYPE DESC,PRIORITY DESC
 	</select>
 
 

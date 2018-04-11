@@ -15,6 +15,7 @@ import com.naran.dubbo.service.account.IAccountRecordService;
 import com.naran.dubbo.service.account.IAccountService;
 import com.naran.dubbo.service.other.IMessageService;
 import com.naran.foundation.dto.SmsMessageCategory;
+import com.naran.foundation.mybatis.page.Page;
 import com.naran.foundation.util.StringUtil;
 
 /**
@@ -298,6 +299,11 @@ public class AccountServiceImpl implements IAccountService {
 	accountDao.updateAccount(account);
 	response.setMsg("成功！");
 	return response;
+    }
+
+    @Override
+    public Page<Account> findAccountByPage(String silentTime,Boolean defriend, String startDate, String endDate, int pageNum, int pageSize) {
+	return accountDao.findAccountByPage(silentTime,defriend, startDate, endDate, pageNum, pageSize);
     }
 
 }

@@ -1,5 +1,7 @@
 package com.naran.web.controller.account;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -155,6 +157,18 @@ public class AccountController extends BaseController {
 	accountService.certification(current);
 
 	writeAjaxJSONResponse(ResultMessageBuilder.build(AppCode.SUCCESS_CODE, "实名认证成功！"), response);
+    }
+
+    /**
+     * 用户唤醒
+     * 
+     */
+    @RequestMapping(value = "/awaken", method = RequestMethod.POST)
+    public void awaken(BaseParam param, HttpServletRequest request, HttpServletResponse response) {
+	Account current = accountService.currentAccount(param.getAccessToken());
+	current.setSilentTime(new Date());
+	accountService.updateAccount(current);
+	writeAjaxJSONResponse(ResultMessageBuilder.build(AppCode.SUCCESS_CODE), response);
     }
 
     /**

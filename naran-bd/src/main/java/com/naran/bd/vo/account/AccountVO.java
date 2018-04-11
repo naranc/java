@@ -4,6 +4,7 @@ import org.springframework.beans.BeanUtils;
 
 import com.naran.core.entity.account.Account;
 import com.naran.foundation.util.BaseVO;
+import com.naran.foundation.util.DateUtil;
 import com.naran.foundation.util.file.qiniu.QiniuImageUtil;
 
 /**
@@ -48,6 +49,12 @@ public class AccountVO implements BaseVO {
     private String cardOpposite;// 身份证反面
 
     private String certificationType;
+
+    private String silentTime;// 唤醒时间
+
+    private String createTime;
+
+    private Boolean defriend;
 
     private String accessToken; // 当前登录授权码
 
@@ -203,6 +210,30 @@ public class AccountVO implements BaseVO {
 	this.certificationType = certificationType;
     }
 
+    public String getSilentTime() {
+	return silentTime;
+    }
+
+    public void setSilentTime(String silentTime) {
+	this.silentTime = silentTime;
+    }
+
+    public String getCreateTime() {
+	return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+	this.createTime = createTime;
+    }
+
+    public Boolean getDefriend() {
+	return defriend;
+    }
+
+    public void setDefriend(Boolean defriend) {
+	this.defriend = defriend;
+    }
+
     @Override
     public void convertPOToVO(Object poObj) {
 	if (null == poObj) {
@@ -214,5 +245,7 @@ public class AccountVO implements BaseVO {
 	this.cardPositive = QiniuImageUtil.newImageUrl(po.getCardPositive());// 身份证正面
 	this.cardOpposite = QiniuImageUtil.newImageUrl(po.getCardPositive());// 身份证反面
 	this.photo = QiniuImageUtil.newImageUrl60(po.getPhoto());
+	this.createTime = DateUtil.formatDateYMDHMS(po.getCreateTime());
+	this.silentTime = DateUtil.formatDateYMDHMS(po.getSilentTime());
     }
 }
