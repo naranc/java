@@ -57,6 +57,8 @@ public class OrderServiceImpl implements IOrderService {
 	Long bookId = null;
 	if (book.getId() == null) {
 	    bookId = bookService.addBook(book);
+	}else{
+	    bookService.updateBook(book);
 	}
 	order.setTypeId(bookId);
 	Long orderId = addOrder(order);
