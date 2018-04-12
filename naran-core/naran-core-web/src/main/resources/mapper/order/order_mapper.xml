@@ -38,6 +38,7 @@
 		<result column="MAIL_CODE" jdbcType="VARCHAR" property="mailCode" />
 		<result column="MAIL_STATUS" jdbcType="VARCHAR" property="mailStatus" />
 		<result column="BACKDROP_BOTTOM_IMG" jdbcType="VARCHAR" property="backdropBottomImg" />
+		<result column="TYPE_ID" jdbcType="BIGINT" property="typeId" />
 	</resultMap>
 
 	<insert id="addOrder" parameterType="Order" useGeneratedKeys="true" keyProperty="id">
@@ -51,7 +52,7 @@
 		BACKDROP_IMG, READ_TIMES, CITY,
 		PROVINCE, COUNTY, COMMODITY_TYPE,
 		QUESTIONNAIRE_OPTIONS, AGING_DEGREE, ESTIMATE_WEIGHT,
-		ORDER_PRICE, MAIL_CODE, MAIL_STATUS,BACKDROP_BOTTOM_IMG)
+		ORDER_PRICE, MAIL_CODE, MAIL_STATUS,BACKDROP_BOTTOM_IMG,TYPE_ID)
 		values (#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
 		#{expired,jdbcType=BIT}, #{initiatorId,jdbcType=BIGINT}, #{initiatorNike,jdbcType=VARCHAR},
 		#{orderType,jdbcType=VARCHAR}, #{recipientId,jdbcType=BIGINT},
@@ -65,7 +66,7 @@
 		#{province,jdbcType=VARCHAR}, #{county,jdbcType=VARCHAR}, #{commodityType,jdbcType=VARCHAR},
 		#{questionnaireOptions,jdbcType=VARCHAR}, #{agingDegree,jdbcType=VARCHAR}, #{estimateWeight,jdbcType=VARCHAR},
 		#{orderPrice,jdbcType=VARCHAR}, #{mailCode,jdbcType=VARCHAR},
-		#{mailStatus,jdbcType=VARCHAR},#{backdropBottomImg,jdbcType=VARCHAR})
+		#{mailStatus,jdbcType=VARCHAR},#{backdropBottomImg,jdbcType=VARCHAR},#{typeId,jdbcType=BIGINT})
 	</insert>
 
 	<update id="updateOrder" parameterType="Order">
@@ -91,6 +92,9 @@
 			</if>
 			<if test="recipientId != null">
 				RECIPIENT_ID = #{recipientId,jdbcType=BIGINT},
+			</if>
+			<if test="typeId != null">
+				TYPE_ID = #{typeId,jdbcType=BIGINT},
 			</if>
 			<if test="recipientNike != null">
 				RECIPIENT_NIKE = #{recipientNike,jdbcType=VARCHAR},

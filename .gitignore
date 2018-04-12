@@ -1,0 +1,6 @@
+*.zip
+*.war
+*.class
+*.java
+/target/
+/naran-foundation/

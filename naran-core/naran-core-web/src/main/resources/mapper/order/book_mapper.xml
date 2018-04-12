@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+    "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.naran.core.entity.order.Book">
+	<resultMap id="BookMap" type="Book">
+		<id column="ID" jdbcType="BIGINT" property="id" />
+		<result column="ISBN" jdbcType="VARCHAR" property="isbn" />
+		<result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+		<result column="EXPIRED" jdbcType="BIT" property="expired" />
+		<result column="TITLE" jdbcType="VARCHAR" property="title" />
+		<result column="PAGES" jdbcType="INTEGER" property="pages" />
+		<result column="AUTHOR" jdbcType="VARCHAR" property="author" />
+		<result column="PRICE" jdbcType="DECIMAL" property="price" />
+		<result column="PUBLISHER" jdbcType="VARCHAR" property="publisher" />
+		<result column="SUMMARY" jdbcType="VARCHAR" property="summary" />
+		<result column="AVERAGE" jdbcType="DECIMAL" property="average" />
+		<result column="TAGS" jdbcType="VARCHAR" property="tags" />
+		<result column="BOOK_IMG" jdbcType="VARCHAR" property="bookImg" />
+
+	</resultMap>
+
+	<insert id="addBook" parameterType="Book" useGeneratedKeys="true" keyProperty="id">
+		insert into naran_book ( ISBN, CREATE_TIME,
+		UPDATE_TIME, EXPIRED, TITLE,
+		PAGES, AUTHOR, PRICE,
+		PUBLISHER, SUMMARY, AVERAGE,
+		TAGS,BOOK_IMG)
+		values (#{isbn,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP}, #{expired,jdbcType=BIT}, #{title,jdbcType=VARCHAR},
+		#{pages,jdbcType=INTEGER}, #{author,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL},
+		#{publisher,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, #{average,jdbcType=DECIMAL},
+		#{tags,jdbcType=VARCHAR},#{bookImg,jdbcType=VARCHAR})
+	</insert>
+
+	<update id="updateBook" parameterType="Book">
+		update naran_book
+		<set>
+			<if test="isbn != null">
+				ISBN = #{isbn,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="expired != null">
+				EXPIRED = #{expired,jdbcType=BIT},
+			</if>
+			<if test="bookImg != null">
+				BOOK_IMG = #{bookImg,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				TITLE = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="pages != null">
+				PAGES = #{pages,jdbcType=INTEGER},
+			</if>
+			<if test="author != null">
+				AUTHOR = #{author,jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				PRICE = #{price,jdbcType=DECIMAL},
+			</if>
+			<if test="publisher != null">
+				PUBLISHER = #{publisher,jdbcType=VARCHAR},
+			</if>
+			<if test="summary != null">
+				SUMMARY = #{summary,jdbcType=VARCHAR},
+			</if>
+			<if test="average != null">
+				AVERAGE = #{average,jdbcType=DECIMAL},
+			</if>
+			<if test="tags != null">
+				TAGS = #{tags,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+	<select id="findBookById" parameterType="Long" resultMap="BookMap">
+		SELECT * FROM naran_book WHERE ID = #{id}
+	</select>
+
+	<select id="findBookByIsbn" parameterType="String" resultMap="BookMap">
+		SELECT * FROM naran_book WHERE ISBN = #{isbn}
+	</select>
+
+	<select id="findBookByPage" parameterType="HashMap" resultMap="BookMap">
+		SELECT * FROM naran_book WHERE EXPIRED=1 ORDER BY ID DESC
+	</select>
+
+
+</mapper>

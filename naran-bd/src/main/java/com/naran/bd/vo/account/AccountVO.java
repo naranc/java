@@ -36,6 +36,10 @@ public class AccountVO implements BaseVO {
 
     private Long nowLove;
 
+    private Long nowLevel;
+
+    private String levelName;
+
     private String name;
 
     private String cardTime;
@@ -234,6 +238,22 @@ public class AccountVO implements BaseVO {
 	this.defriend = defriend;
     }
 
+    public Long getNowLevel() {
+	return nowLevel;
+    }
+
+    public void setNowLevel(Long nowLevel) {
+	this.nowLevel = nowLevel;
+    }
+
+    public String getLevelName() {
+	return levelName;
+    }
+
+    public void setLevelName(String levelName) {
+	this.levelName = levelName;
+    }
+
     @Override
     public void convertPOToVO(Object poObj) {
 	if (null == poObj) {
@@ -247,5 +267,6 @@ public class AccountVO implements BaseVO {
 	this.photo = QiniuImageUtil.newImageUrl60(po.getPhoto());
 	this.createTime = DateUtil.formatDateYMDHMS(po.getCreateTime());
 	this.silentTime = DateUtil.formatDateYMDHMS(po.getSilentTime());
+	this.levelName = "那然使者1星";
     }
 }

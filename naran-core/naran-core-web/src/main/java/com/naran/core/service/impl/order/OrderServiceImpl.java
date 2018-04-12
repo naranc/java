@@ -8,11 +8,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.naran.core.dao.order.OrderDao;
+import com.naran.core.entity.order.Book;
+import com.naran.core.entity.order.BookReview;
 import com.naran.core.entity.order.Order;
 import com.naran.core.entity.questionnaire.QuestionnaireOption;
 import com.naran.core.enums.MailStatus;
 import com.naran.core.enums.OrderStatus;
 import com.naran.core.enums.OrderType;
+import com.naran.dubbo.service.order.IBookReviewService;
+import com.naran.dubbo.service.order.IBookService;
 import com.naran.dubbo.service.order.IOrderService;
 import com.naran.dubbo.service.questionnaire.IQuestionnaireOptionService;
 import com.naran.foundation.mybatis.page.Page;
@@ -30,6 +34,10 @@ public class OrderServiceImpl implements IOrderService {
     private OrderDao orderDao;
     @Autowired
     private IQuestionnaireOptionService questionnaireOptionService;
+    @Autowired
+    private IBookService bookService;
+    @Autowired
+    private IBookReviewService bookReviewService;
 
     @Override
     public Long addOrder(Order order) {
@@ -42,6 +50,22 @@ public class OrderServiceImpl implements IOrderService {
 	order.setOrderStatus(OrderStatus.INITIAL.name());
 	order.setMailStatus(MailStatus.INITIAL.name());
 	return orderDao.addOrder(order);
+    }
+
+    @Override
+    public void addOrderByBook(Order order, Book book, BookReview bookReview) {
+	Long bookId = null;
+	if (book.getId() == null) {
+	    bookId = bookService.addBook(book);
+	}
+	order.setTypeId(bookId);
+	Long orderId = addOrder(order);
+	if (bookReview != null) {
+	    bookReview.setOrderId(orderId);
+	    bookReview.setBookId(bookId);
+	    bookReviewService.addBookReview(bookReview);
+	}
+
     }
 
     @Override

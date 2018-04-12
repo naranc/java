@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+    "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.naran.core.entity.order.BookReview">
+	<resultMap id="BookReviewMap" type="BookReview">
+		<id column="ID" jdbcType="BIGINT" property="id" />
+		<result column="TITLE" jdbcType="VARCHAR" property="title" />
+		<result column="CONTENT" jdbcType="VARCHAR" property="content" />
+		<result column="AUTHOR" jdbcType="VARCHAR" property="author" />
+		<result column="AUTHOR_IMG" jdbcType="VARCHAR" property="authorImg" />
+		<result column="COMMENT_TIMES" jdbcType="INTEGER" property="commentTimes" />
+		<result column="LIKE_TIMES" jdbcType="INTEGER" property="likeTimes" />
+		<result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+		<result column="EXPIRED" jdbcType="BIT" property="expired" />
+		<result column="BOOK_ID" jdbcType="BIGINT" property="bookId" />
+		<result column="ORDER_ID" jdbcType="BIGINT" property="orderId" />
+		<result column="AUTHOR_ID" jdbcType="BIGINT" property="authorId" />
+
+	</resultMap>
+
+	<insert id="addBookReview" parameterType="BookReview" useGeneratedKeys="true" keyProperty="id">
+		insert into naran_book_review ( TITLE, CONTENT,
+		AUTHOR, AUTHOR_IMG, COMMENT_TIMES,
+		LIKE_TIMES, CREATE_TIME, UPDATE_TIME,
+		EXPIRED, BOOK_ID, ORDER_ID, AUTHOR_ID)
+		values ( #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR},
+		#{author,jdbcType=VARCHAR}, #{authorImg,jdbcType=VARCHAR}, #{commentTimes,jdbcType=INTEGER},
+		#{likeTimes,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+		#{expired,jdbcType=BIT}, #{bookId,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, #{authorId,jdbcType=BIGINT})
+	</insert>
+
+	<update id="updateBookReview" parameterType="BookReview">
+		update naran_book_review
+		<set>
+			<if test="title != null">
+				TITLE = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				CONTENT = #{content,jdbcType=VARCHAR},
+			</if>
+			<if test="author != null">
+				AUTHOR = #{author,jdbcType=VARCHAR},
+			</if>
+			<if test="authorImg != null">
+				AUTHOR_IMG = #{authorImg,jdbcType=VARCHAR},
+			</if>
+			<if test="commentTimes != null">
+				COMMENT_TIMES = #{commentTimes,jdbcType=INTEGER},
+			</if>
+			<if test="likeTimes != null">
+				LIKE_TIMES = #{likeTimes,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="expired != null">
+				EXPIRED = #{expired,jdbcType=BIT},
+			</if>
+			<if test="bookId != null">
+				BOOK_ID = #{bookId,jdbcType=BIGINT},
+			</if>
+			<if test="orderId != null">
+				ORDER_ID = #{orderId,jdbcType=BIGINT},
+			</if>
+			<if test="authorId != null">
+				AUTHOR_ID = #{authorId,jdbcType=BIGINT},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+	<select id="findBookReviewById" parameterType="Long" resultMap="BookReviewMap">
+		SELECT * FROM naran_book_review WHERE ID = #{id}
+	</select>
+
+	<select id="findBookReviewByPage" parameterType="HashMap" resultMap="BookReviewMap">
+		SELECT * FROM naran_book_review WHERE EXPIRED=1 
+		<if test="orderId != null">
+			AND ORDER_ID = #{orderId}
+		</if>
+		ORDER BY ID DESC
+	</select>
+
+
+</mapper>

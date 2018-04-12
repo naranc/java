@@ -15,6 +15,8 @@ public class Order extends BaseEntityPO {
 
     private String orderType;
 
+    private Long typeId;
+
     private Long recipientId;
 
     private String recipientNike;
@@ -49,12 +51,6 @@ public class Order extends BaseEntityPO {
 
     private Integer readTimes;
 
-    private String city;
-
-    private String province;
-
-    private String county;
-
     private String commodityType;
 
     private String questionnaireOptions;
@@ -68,6 +64,12 @@ public class Order extends BaseEntityPO {
     private String mailCode;
 
     private String mailStatus;
+
+    private String city;
+
+    private String province;
+
+    private String county;
 
     public Long getInitiatorId() {
 	return initiatorId;
@@ -91,6 +93,14 @@ public class Order extends BaseEntityPO {
 
     public void setOrderType(String orderType) {
 	this.orderType = orderType;
+    }
+
+    public Long getTypeId() {
+	return typeId;
+    }
+
+    public void setTypeId(Long typeId) {
+	this.typeId = typeId;
     }
 
     public Long getRecipientId() {
@@ -229,30 +239,6 @@ public class Order extends BaseEntityPO {
 	this.readTimes = readTimes;
     }
 
-    public String getCity() {
-	return city;
-    }
-
-    public void setCity(String city) {
-	this.city = city;
-    }
-
-    public String getProvince() {
-	return province;
-    }
-
-    public void setProvince(String province) {
-	this.province = province;
-    }
-
-    public String getCounty() {
-	return county;
-    }
-
-    public void setCounty(String county) {
-	this.county = county;
-    }
-
     public String getCommodityType() {
 	return commodityType;
     }
@@ -307,6 +293,30 @@ public class Order extends BaseEntityPO {
 
     public void setMailStatus(String mailStatus) {
 	this.mailStatus = mailStatus;
+    }
+
+    public String getCity() {
+	return city;
+    }
+
+    public void setCity(String city) {
+	this.city = city;
+    }
+
+    public String getProvince() {
+	return province;
+    }
+
+    public void setProvince(String province) {
+	this.province = province;
+    }
+
+    public String getCounty() {
+	return county;
+    }
+
+    public void setCounty(String county) {
+	this.county = county;
     }
 
 }

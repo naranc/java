@@ -1,5 +1,7 @@
 package com.naran.dubbo.service.order;
 
+import com.naran.core.entity.order.Book;
+import com.naran.core.entity.order.BookReview;
 import com.naran.core.entity.order.Order;
 import com.naran.foundation.mybatis.page.Page;
 
@@ -34,5 +36,7 @@ public interface IOrderService {
     Page<Order> findOrderByObtainPage(Long accountId, int pageNum, int pageSize);
 
     Page<Order> findOrderBySendPage(Long accountId, int pageNum, int pageSize);
+
+    void addOrderByBook(Order order, Book book, BookReview bookReview);
 
 }
