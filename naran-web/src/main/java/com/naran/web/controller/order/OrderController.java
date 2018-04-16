@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.naran.core.entity.account.Account;
 import com.naran.core.entity.order.Order;
 import com.naran.core.entity.order.OrderApply;
+import com.naran.core.entity.other.Classify;
 import com.naran.core.enums.CertificationType;
 import com.naran.core.enums.MailStatus;
 import com.naran.core.enums.OrderApplyStatus;
@@ -25,6 +26,7 @@ import com.naran.dubbo.response.DubboResponseCode;
 import com.naran.dubbo.service.account.IAccountService;
 import com.naran.dubbo.service.order.IOrderApplyService;
 import com.naran.dubbo.service.order.IOrderService;
+import com.naran.dubbo.service.other.IClassifyService;
 import com.naran.foundation.mybatis.page.Page;
 import com.naran.foundation.util.ListVO;
 import com.naran.foundation.util.ResultMessageBuilder;
@@ -48,6 +50,7 @@ import com.naran.web.vo.order.OrderWishVO;
 import com.naran.web.vo.order.OrderWithMeVO;
 import com.naran.web.vo.order.StationeryPageVO;
 import com.naran.web.vo.order.StationeryVO;
+import com.naran.web.vo.other.ClassifyVO;
 
 /**
  * （订单）模块控制器
@@ -64,6 +67,21 @@ public class OrderController extends BaseController {
     private IOrderApplyService orderApplyService;
     @Autowired
     private IAccountService accountService;
+    @Autowired
+    private IClassifyService classifyService;
+
+    /**
+     * 订单分类
+     * 
+     * @param request
+     * @param response
+     */
+    @RequestMapping(value = "/order/type")
+    public void orderType(OrderPageParam param, HttpServletRequest request, HttpServletResponse response) {
+	// 加载
+	List<Classify> classifys = classifyService.findClassifyByFather(0l);
+	writeAjaxJSONResponse(ResultMessageBuilder.build(new ListVO<ClassifyVO>(classifys, ClassifyVO.class).getVoList()), response);
+    }
 
     /**
      * 列表(分页)
@@ -75,7 +93,7 @@ public class OrderController extends BaseController {
     public void orderPage(OrderPageParam param, HttpServletRequest request, HttpServletResponse response) {
 	OrderPageVO pageVO = new OrderPageVO();
 	// 加载
-	Page<Order> page = orderService.findOrderByPage(null, param.getAgingDegree(), param.getCommodityType(), param.getCity(), param.getProvince(), param.getOrderByType(), param.getPageNum(), param.getPageSize());
+	Page<Order> page = orderService.findOrderByPage(null, param.getAgingDegree(), param.getCommodityType(), null, null, param.getOrderByType(), param.getPageNum(), param.getPageSize());
 	if (null != page && CollectionUtils.isNotEmpty(page.getResult())) {
 	    pageVO.setPageAll(param.getPageNum(), param.getPageSize(), page.getTotalPage(), page.getTotalCount());
 	    pageVO.setOrders(new ListVO<OrderSimpleVO>(page.getResult(), OrderSimpleVO.class).getVoList());
@@ -93,7 +111,7 @@ public class OrderController extends BaseController {
     public void orderNewPage(OrderPageParam param, HttpServletRequest request, HttpServletResponse response) {
 	OrderPageVO pageVO = new OrderPageVO();
 	// 加载
-	Page<Order> page = orderService.findOrderByPage(null, param.getAgingDegree(), param.getCommodityType(), param.getCity(), param.getProvince(), param.getOrderByType(), param.getPageNum(), param.getPageSize());
+	Page<Order> page = orderService.findOrderByPage(null, param.getAgingDegree(), param.getCommodityType(), null, null, param.getOrderByType(), param.getPageNum(), param.getPageSize());
 	if (null != page && CollectionUtils.isNotEmpty(page.getResult())) {
 	    pageVO.setPageAll(param.getPageNum(), param.getPageSize(), page.getTotalPage(), page.getTotalCount());
 	    pageVO.setOrders(new ListVO<OrderSimpleVO>(page.getResult(), OrderSimpleVO.class).getVoList());
@@ -315,7 +333,7 @@ public class OrderController extends BaseController {
     public void donationPage(OrderPageParam param, HttpServletRequest request, HttpServletResponse response) {
 	OrderPageVO pageVO = new OrderPageVO();
 	// 加载
-	Page<Order> page = orderService.findOrderByPage(OrderType.BOOK.name(), param.getAgingDegree(), param.getCommodityType(), param.getCity(), param.getProvince(), param.getOrderByType(), param.getPageNum(), param.getPageSize());
+	Page<Order> page = orderService.findOrderByPage(OrderType.BOOK.name(), param.getAgingDegree(), param.getCommodityType(), null, null, param.getOrderByType(), param.getPageNum(), param.getPageSize());
 	if (null != page && CollectionUtils.isNotEmpty(page.getResult())) {
 	    pageVO.setPageAll(param.getPageNum(), param.getPageSize(), page.getTotalPage(), page.getTotalCount());
 	    pageVO.setOrders(new ListVO<OrderSimpleVO>(page.getResult(), OrderSimpleVO.class).getVoList());

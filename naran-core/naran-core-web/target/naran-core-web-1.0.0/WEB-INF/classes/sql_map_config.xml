@@ -33,16 +33,21 @@
 		<typeAlias type="com.naran.core.entity.order.OrderFeedback" alias="OrderFeedback" />
 		<!-- 订单 -->
 		<typeAlias type="com.naran.core.entity.order.Order" alias="Order" />
+		<!-- 图书 -->
+		<typeAlias type="com.naran.core.entity.order.Book" alias="Book" />
+		<!-- 书 评 -->
+		<typeAlias type="com.naran.core.entity.order.BookReview" alias="BookReview" />
 		<!-- 邮寄地址 -->
 		<typeAlias type="com.naran.core.entity.other.Mail" alias="Mail" />
 		<!-- 轮播图 -->
 		<typeAlias type="com.naran.core.entity.other.Publicity" alias="Publicity" />
-		
+
 		<!-- 那然快报 -->
 		<typeAlias type="com.naran.core.entity.other.Topline" alias="Topline" />
 		<!-- 问卷记录 -->
 		<typeAlias type="com.naran.core.entity.other.Rank" alias="Rank" />
 		<typeAlias type="com.naran.core.entity.other.Stationery" alias="Stationery" />
+		<typeAlias type="com.naran.core.entity.other.Classify" alias="Classify" />
 
 		<!-- 那然等级 -->
 		<typeAlias type="com.naran.core.entity.points.Level" alias="Level" />
@@ -81,7 +86,7 @@
 
 		<mapper resource="mapper/account/account_mapper.xml" />
 		<mapper resource="mapper/account/account_record_mapper.xml" />
-		
+
 		<mapper resource="mapper/activity/activity_mapper.xml" />
 		<mapper resource="mapper/activity/activity_apply_mapper.xml" />
 
@@ -97,12 +102,16 @@
 		<mapper resource="mapper/order/order_feedback_mapper.xml" />
 		<mapper resource="mapper/order/order_mapper.xml" />
 
+		<mapper resource="mapper/order/book_mapper.xml" />
+		<mapper resource="mapper/order/book_review_mapper.xml" />
+
 		<mapper resource="mapper/other/mail_mapper.xml" />
 		<mapper resource="mapper/other/publicity_mapper.xml" />
-		
+
 		<mapper resource="mapper/other/topline_mapper.xml" />
 		<mapper resource="mapper/other/rank_mapper.xml" />
 		<mapper resource="mapper/other/stationery_mapper.xml" />
+		<mapper resource="mapper/other/classify_mapper.xml" />
 
 		<mapper resource="mapper/points/level_mapper.xml" />
 		<mapper resource="mapper/points/level_record_mapper.xml" />

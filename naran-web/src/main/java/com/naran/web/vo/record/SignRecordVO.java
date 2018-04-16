@@ -7,7 +7,7 @@ import com.naran.foundation.util.BaseVO;
 import com.naran.foundation.util.DateUtil;
 
 /**
- * 评论展示封装
+ * 签到展示封装
  * 
  * @author zefeng.xu
  */

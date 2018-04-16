@@ -10,9 +10,7 @@ public class OrderPageParam extends BasePageParam {
 
     private String commodityType;// 商品类别
 
-    private String city;
-
-    private String province;
+    private String title;
 
     public String getOrderByType() {
 	return orderByType;
@@ -38,20 +36,12 @@ public class OrderPageParam extends BasePageParam {
 	this.commodityType = commodityType;
     }
 
-    public String getCity() {
-	return city;
+    public String getTitle() {
+	return title;
     }
 
-    public void setCity(String city) {
-	this.city = city;
-    }
-
-    public String getProvince() {
-	return province;
-    }
-
-    public void setProvince(String province) {
-	this.province = province;
+    public void setTitle(String title) {
+	this.title = title;
     }
 
 }

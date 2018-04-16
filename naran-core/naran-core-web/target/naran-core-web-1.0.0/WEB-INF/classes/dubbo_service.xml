@@ -44,6 +44,8 @@
 	<dubbo:service ref="orderFeedbackService" interface="com.naran.dubbo.service.order.IOrderFeedbackService" />
 	<!-- 订单 -->
 	<dubbo:service ref="orderService" interface="com.naran.dubbo.service.order.IOrderService" />
+	<dubbo:service ref="bookService" interface="com.naran.dubbo.service.order.IBookService" />
+	<dubbo:service ref="bookReviewService" interface="com.naran.dubbo.service.order.IBookReviewService" />
 
 	<!-- 邮寄地址 -->
 	<dubbo:service ref="mailService" interface="com.naran.dubbo.service.other.IMailService" />
@@ -56,6 +58,7 @@
 	<dubbo:service ref="rankService" interface="com.naran.dubbo.service.other.IRankService" />
 	<!-- -->
 	<dubbo:service ref="stationeryService" interface="com.naran.dubbo.service.other.IStationeryService" />
+	<dubbo:service ref="classifyService" interface="com.naran.dubbo.service.other.IClassifyService" />
 
 	<!-- 等级记录 -->
 	<dubbo:service ref="levelRecordService" interface="com.naran.dubbo.service.points.ILevelRecordService" />

@@ -6,7 +6,7 @@ package com.naran.core.enums;
  */
 public enum ContentType {
 
-    COVERAGE("专题报道"), WEEKLY("每周推荐");
+     BOOK_DIGEST("书摘"),BOOK_FRIENDS("以书会友"), BOOK_ASSIST("书荒互助"), COVERAGE("专题报道"), WEEKLY("每周推荐");
 
     private String chinese;
 

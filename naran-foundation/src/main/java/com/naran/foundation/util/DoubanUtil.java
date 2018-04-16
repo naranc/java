@@ -54,7 +54,7 @@ public class DoubanUtil {
     }
 
     public static void main(String[] args) throws ClientProtocolException, IOException {
-	new DoubanUtil(ISBN);
+	new DoubanUtil("9787115111302");
     }
 
 }

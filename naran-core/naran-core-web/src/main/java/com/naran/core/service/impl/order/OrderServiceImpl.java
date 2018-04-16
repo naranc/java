@@ -54,10 +54,10 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public void addOrderByBook(Order order, Book book, BookReview bookReview) {
-	Long bookId = null;
+	Long bookId = book.getId();
 	if (book.getId() == null) {
 	    bookId = bookService.addBook(book);
-	}else{
+	} else {
 	    bookService.updateBook(book);
 	}
 	order.setTypeId(bookId);

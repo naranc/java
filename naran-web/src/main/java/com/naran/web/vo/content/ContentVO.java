@@ -32,6 +32,8 @@ public class ContentVO implements BaseVO {
 
     private String recommendTime;
 
+    private String likeTimes;
+
     private String createTime;
 
     public Long getContentId() {
@@ -112,6 +114,14 @@ public class ContentVO implements BaseVO {
 
     public void setCreateTime(String createTime) {
 	this.createTime = createTime;
+    }
+
+    public String getLikeTimes() {
+	return likeTimes;
+    }
+
+    public void setLikeTimes(String likeTimes) {
+	this.likeTimes = likeTimes;
     }
 
     @Override

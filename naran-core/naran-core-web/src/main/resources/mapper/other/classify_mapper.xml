@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+    "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.naran.core.entity.other.Classify">
+	<resultMap id="ClassifyMap" type="Classify">
+		<id column="ID" jdbcType="BIGINT" property="id" />
+		<result column="CLASSIFY_NAME" jdbcType="VARCHAR" property="classifyName" />
+		<result column="CLASSIFY_VALUE" jdbcType="VARCHAR" property="classifyValue" />
+		<result column="CLASSIFY_TYPE" jdbcType="VARCHAR" property="classifyType" />
+		<result column="REMARK" jdbcType="VARCHAR" property="remark" />
+		<result column="CLASSIFY_IMG" jdbcType="VARCHAR" property="classifyImg" />
+		<result column="FATHER_ID" jdbcType="BIGINT" property="fatherId" />
+		<result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+		<result column="EXPIRED" jdbcType="BIT" property="expired" />
+		<result column="PRIORITY" jdbcType="INTEGER" property="priority" />
+	</resultMap>
+
+	<insert id="addClassify" parameterType="Classify" useGeneratedKeys="true" keyProperty="id">
+		insert into naran_classify (CLASSIFY_NAME, CLASSIFY_VALUE,
+		CLASSIFY_TYPE, REMARK, CLASSIFY_IMG,
+		FATHER_ID, CREATE_TIME, UPDATE_TIME,
+		EXPIRED, PRIORITY)
+		values ( #{classifyName,jdbcType=VARCHAR}, #{classifyValue,jdbcType=VARCHAR},
+		#{classifyType,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{classifyImg,jdbcType=VARCHAR},
+		#{fatherId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+		#{expired,jdbcType=BIT}, #{priority,jdbcType=INTEGER})
+	</insert>
+
+	<update id="updateClassify" parameterType="Classify">
+		update naran_classify
+		<set>
+			<if test="classifyName != null">
+				CLASSIFY_NAME = #{classifyName,jdbcType=VARCHAR},
+			</if>
+			<if test="classifyValue != null">
+				CLASSIFY_VALUE = #{classifyValue,jdbcType=VARCHAR},
+			</if>
+			<if test="classifyType != null">
+				CLASSIFY_TYPE = #{classifyType,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="classifyImg != null">
+				CLASSIFY_IMG = #{classifyImg,jdbcType=VARCHAR},
+			</if>
+			<if test="fatherId != null">
+				FATHER_ID = #{fatherId,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="expired != null">
+				EXPIRED = #{expired,jdbcType=BIT},
+			</if>
+			<if test="priority != null">
+				PRIORITY = #{priority,jdbcType=INTEGER},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+	<select id="findClassifyById" parameterType="Long" resultMap="ClassifyMap">
+		SELECT * FROM naran_classify WHERE ID = #{id}
+	</select>
+
+	<select id="findClassifyByPage" parameterType="HashMap" resultMap="ClassifyMap">
+		SELECT * FROM naran_classify WHERE EXPIRED=1 
+		<if test="classifyType != null">
+			AND CLASSIFY_TYPE = #{classifyType}
+		</if>
+		<if test="fatherId != null">
+			AND FATHER_ID = #{fatherId}
+		</if>
+		ORDER BY PRIORITY DESC
+	</select>
+
+
+</mapper>

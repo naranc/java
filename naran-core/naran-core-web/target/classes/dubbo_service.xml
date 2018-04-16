@@ -58,6 +58,7 @@
 	<dubbo:service ref="rankService" interface="com.naran.dubbo.service.other.IRankService" />
 	<!-- -->
 	<dubbo:service ref="stationeryService" interface="com.naran.dubbo.service.other.IStationeryService" />
+	<dubbo:service ref="classifyService" interface="com.naran.dubbo.service.other.IClassifyService" />
 
 	<!-- 等级记录 -->
 	<dubbo:service ref="levelRecordService" interface="com.naran.dubbo.service.points.ILevelRecordService" />
